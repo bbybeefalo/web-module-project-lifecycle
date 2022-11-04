@@ -17,7 +17,7 @@ body::after {
 
 body, input, button {
   font-family: 'Titillium Web', sans-serif;
-  color: #484848;
+  color: #ffffff;
 }
 
 #root, #wrapper {
@@ -27,7 +27,7 @@ body, input, button {
 }
 
 h1, h2, h3 {
-  color: #93005a;
+  color: #ffffff;
 
 }
 
@@ -82,4 +82,8 @@ ul, form {
 
 .todo:hover {
   cursor: pointer;
+}
+
+* {
+  background-color: rgb(64, 93, 94);
 }
