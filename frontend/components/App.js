@@ -11,7 +11,8 @@ export default class App extends React.Component {
     this.state = {
       todos: [],
       error: '',
-      todoInput: ''
+      todoInput: '',
+      displayComplete: true
     }
   }
 
@@ -48,6 +49,9 @@ export default class App extends React.Component {
       .catch(err => console.log(err))
   }
 
+  hideCompleted = () => {
+    this.setState({ ...this.state, displayComplete: !this.state.displayComplete })
+  }
 
   resetForm = () => this.setState({ ...this.state, todoInput: '' })
 
@@ -72,12 +76,13 @@ export default class App extends React.Component {
         <div id="error">{this.state.error}</div>
 
         <h2>To-Do:</h2>
-        {this.state.todos.map((td) =>
-        (<p
-          onClick={() => this.toggleCompleted(td.id)}
-          key={td.id}>
-          {td.name} {td.completed ? '🗸' : ''}
-        </p>))}
+        {this.state.todos.reduce((acc, td) => {
+          if (this.state.displayComplete || !td.completed) return acc.concat(
+            <p onClick={() => this.toggleCompleted(td.id)} key={td.id}>{td.name} {td.completed ? '🗸' : ''}</p>
+          )
+          return acc
+        }, [])
+        }
 
         <form id="todoForm" onSubmit={this.onFormSubmit}>
           <input
@@ -88,9 +93,8 @@ export default class App extends React.Component {
           >
           </input>
           <input type="submit"></input>
-          <button>Clear Completed</button>
-
         </form>
+        <button onClick={this.hideCompleted}>{this.state.displayComplete ? 'Hide' : 'Show'} Completed</button>
       </>
     )
   }
