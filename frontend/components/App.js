@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react'
+import { ThemeConsumer } from 'styled-components';
 import Form from './Form'
 import TodoList from './TodoList'
 const URL = 'http://localhost:9000/api/todos'
@@ -84,17 +85,12 @@ export default class App extends React.Component {
         }, [])
         }
 
-        <form id="todoForm" onSubmit={this.onFormSubmit}>
-          <input
-            value={this.state.todoInput}
-            type="text"
-            placeholder="Add task"
-            onChange={this.onTodoChange}
-          >
-          </input>
-          <input type="submit"></input>
-        </form>
-        <button onClick={this.hideCompleted}>{this.state.displayComplete ? 'Hide' : 'Show'} Completed</button>
+       <Form 
+       onFormSubmit={this.onFormSubmit}
+       onTodoChange={this.onTodoChange}
+       todoInput={this.state.todoInput}
+       hideCompleted={this.hideCompleted}
+       displayComplete={this.displayComplete}/>
       </>
     )
   }
